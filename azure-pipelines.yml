@@ -1,0 +1,73 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+pool:
+  dev-hosted
+
+steps:
+- script: echo Hello, world!
+  displayName: 'Run a one-line script'
+
+- task: SonarCloudPrepare@1
+  inputs:
+    SonarCloud: 'serviceConnection1'
+    organization: 'herambmishra'
+    scannerMode: 'Other'
+    extraProperties: |
+      # Additional properties that will be passed to the scanner, 
+      # Put one key=value per line, example:
+      # sonar.exclusions=**/*.bin
+      sonar.projectKey=herambmishra_ExitTest
+      sonar.projectName=ExitTest
+
+- task: Npm@1
+  inputs:
+    command: 'install'
+    workingDir: 'C:\Users\heramb\Desktop\vsts-agent-win-x64-2.206.1\_work\1\s\Frontend'
+
+- task: Npm@1
+  inputs:
+    command: 'custom'
+    workingDir: 'C:\Users\heramb\Desktop\vsts-agent-win-x64-2.206.1\_work\1\s\Frontend'
+    customCommand: 'ng build'
+
+- task: Maven@3
+  inputs:
+    mavenPomFile: 'C:\Users\heramb\Desktop\vsts-agent-win-x64-2.206.1\_work\1\s\RestAPIServices\pom.xml'
+    publishJUnitResults: false
+    codeCoverageToolOption: 'JaCoCo'
+    javaHomeOption: 'JDKVersion'
+    jdkVersionOption: '1.11'
+    mavenVersionOption: 'Default'
+    mavenAuthenticateFeed: false
+    effectivePomSkip: false
+    sonarQubeRunAnalysis: true
+    sqMavenPluginVersionChoice: 'latest'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: 'C:\Users\heramb\Desktop\vsts-agent-win-x64-2.206.1\_work\1\s\Frontend\dist'
+    ArtifactName: 'Frontend-artifact'
+    publishLocation: 'Container'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: 'C:\Users\heramb\Desktop\vsts-agent-win-x64-2.206.1\_work\1\s\RestAPIServices\target'
+    ArtifactName: 'RestAPI-backend-Artifact'
+    publishLocation: 'Container'
+
+- task: SonarCloudAnalyze@1
+
+- task: SonarCloudPublish@1
+  inputs:
+    pollingTimeoutSec: '300'
+
+- script: |
+    echo Add other tasks to build, test, and deploy your project.
+    echo See https://aka.ms/yaml
+  displayName: 'Run a multi-line script'
