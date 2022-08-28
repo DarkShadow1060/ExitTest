@@ -34,7 +34,7 @@ steps:
   inputs:
     command: 'custom'
     workingDir: 'C:\Users\heramb\Desktop\vsts-agent-win-x64-2.206.1\_work\1\s\Frontend'
-    customCommand: 'ng build'
+    customCommand: 'run ng build'
 
 - task: Maven@3
   inputs:
