@@ -7,7 +7,7 @@ trigger:
 - main
 
 pool:
-  dev-hosted
+  dev_hosted
 
 steps:
 - script: echo Hello, world!
