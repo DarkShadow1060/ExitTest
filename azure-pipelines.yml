@@ -15,15 +15,15 @@ steps:
 
 - task: SonarCloudPrepare@1
   inputs:
-    SonarCloud: 'serviceConnection1'
-    organization: 'herambmishra'
+    SonarCloud: 'sonarCloud'
+    organization: 'n6uuep6pxopwptqe4hnkg5qel4pm4desbfsifxgrludnznmj5ifq'
     scannerMode: 'Other'
     extraProperties: |
       # Additional properties that will be passed to the scanner, 
       # Put one key=value per line, example:
       # sonar.exclusions=**/*.bin
-      sonar.projectKey=herambmishra_ExitTest
-      sonar.projectName=ExitTest
+      sonar.projectKey=darkshadow223381_Dev-Prod
+      sonar.projectName=Dev Prod
 
 - task: Npm@1
   inputs:
