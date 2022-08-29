@@ -28,17 +28,17 @@ steps:
 - task: Npm@1
   inputs:
     command: 'install'
-    workingDir: 'C:\Users\heramb\Desktop\vsts-agent-win-x64-2.206.1\_work\1\s\Frontend'
+    workingDir: 'C:\Users\heramb\Desktop\vsts-agent-win-x64-2.206.1\_work\3\s\Frontend'
 
 - task: Npm@1
   inputs:
     command: 'custom'
-    workingDir: 'C:\Users\heramb\Desktop\vsts-agent-win-x64-2.206.1\_work\1\s\Frontend'
+    workingDir: 'C:\Users\heramb\Desktop\vsts-agent-win-x64-2.206.1\_work\3\s\Frontend'
     customCommand: 'run ng build'
 
 - task: Maven@3
   inputs:
-    mavenPomFile: 'C:\Users\heramb\Desktop\vsts-agent-win-x64-2.206.1\_work\1\s\RestAPIServices\pom.xml'
+    mavenPomFile: 'C:\Users\heramb\Desktop\vsts-agent-win-x64-2.206.1\_work\3\s\RestAPIServices\pom.xml'
     publishJUnitResults: false
     codeCoverageToolOption: 'JaCoCo'
     javaHomeOption: 'JDKVersion'
@@ -51,13 +51,13 @@ steps:
 
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: 'C:\Users\heramb\Desktop\vsts-agent-win-x64-2.206.1\_work\1\s\Frontend\dist'
+    PathtoPublish: 'C:\Users\heramb\Desktop\vsts-agent-win-x64-2.206.1\_work\3\s\Frontend\dist'
     ArtifactName: 'Frontend-artifact'
     publishLocation: 'Container'
 
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: 'C:\Users\heramb\Desktop\vsts-agent-win-x64-2.206.1\_work\1\s\RestAPIServices\target'
+    PathtoPublish: 'C:\Users\heramb\Desktop\vsts-agent-win-x64-2.206.1\_work\3\s\RestAPIServices\target'
     ArtifactName: 'RestAPI-backend-Artifact'
     publishLocation: 'Container'
 
